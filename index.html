@@ -1,8 +1,23 @@
 <html>
     <head>
-
+        <style>
+            body {
+                background-color: #333;
+                color: #CCC;
+            }
+        </style>
     </head>
     <body>
-        <h1>Hello World</h1>
+        <h1>First Page</h1>
+        <p>Game 1</p>
+        <canvas id="stage" width="400" height="400"></canvas>
+        <script>
+            let canvas = document.getElementById('stage');
+            let ctx = canvas.getContext('2d');
+
+            ctx.fillRect(25, 25, 100, 100);
+            ctx.clearRect(45, 45, 60, 60);
+            ctx.strokeRect(50, 50, 50, 50);
+        </script>
     </body>
 </html>
