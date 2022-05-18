@@ -2,8 +2,12 @@
     <head>
         <style>
             body {
-                background-color: #333;
-                color: #CCC;
+                background-color: black;
+                color: rgb(255, 241, 241);
+            }
+
+            canvas {
+                border: 1px solid white;
             }
         </style>
     </head>
@@ -14,10 +18,67 @@
         <script>
             let canvas = document.getElementById('stage');
             let ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
 
-            ctx.fillRect(25, 25, 100, 100);
-            ctx.clearRect(45, 45, 60, 60);
-            ctx.strokeRect(50, 50, 50, 50);
+            //function rand random number between 1 and 10
+            function rand() {
+                return Math.floor(Math.random() * 2) + 1;
+            }
+                
+
+            // function createBall(x, y, radius, color)
+            function createBall(x, y, radius, color) {
+                let ball = {
+                    x: x,
+                    y: y,
+                    vx: rand(),
+                    vy: rand(),
+                    radius: radius,
+                    color: color,
+                    draw: function () {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                        ctx.fillStyle = this.color;
+                        ctx.fill();
+                    },
+
+                    // update should check for collisions with canvas edges
+                    update: function() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        // check for collisions with canvas edges
+                        if (this.x + this.radius > width || this.x - this.radius < 0) {
+                            this.vx = -this.vx;
+                        }
+                        if (this.y + this.radius > height || this.y - this.radius < 0) {
+                            this.vy = -this.vy;
+                        }
+                    }
+                };
+                return ball;
+            }
+
+            
+            // create a ball
+            let ball = createBall(100, 100, 20, 'red');
+
+            // start the game loop with requestAnimationFrame
+            function gameLoop() {
+                // clear the canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+                // draw the ball
+                ball.draw();
+
+                // update the ball
+                ball.update();
+
+                // request another game loop
+                requestAnimationFrame(gameLoop);
+            }
+            requestAnimationFrame(gameLoop);
+
         </script>
     </body>
 </html>
