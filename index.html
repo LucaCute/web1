@@ -26,7 +26,6 @@
                 return Math.floor(Math.random() * 2) + 1;
             }
                 
-
             // function createBall(x, y, radius, color)
             function createBall(x, y, radius, color) {
                 let ball = {
@@ -59,9 +58,9 @@
                 return ball;
             }
 
-            
             // create a ball
-            let ball = createBall(100, 100, 20, 'red');
+            let ball1 = createBall(100, 150, 20, 'blue');
+            let ball2 = createBall(200, 150, 30, 'red');
 
             // start the game loop with requestAnimationFrame
             function gameLoop() {
@@ -69,10 +68,10 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height)
 
                 // draw the ball
-                ball.draw();
-
-                // update the ball
-                ball.update();
+                ball1.draw();
+                ball1.update();
+                ball2.draw();
+                ball2.update();
 
                 // request another game loop
                 requestAnimationFrame(gameLoop);
